@@ -4,6 +4,16 @@ from django.contrib import admin
 # a new import
 from blogging.models import Post, Category
 
-# and a new admin registration
-admin.site.register(Post)
-admin.site.register(Category)
+
+class CategoryInline(admin.StackedInline):
+    model = Category
+
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    inlines = [CategoryInline]
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    exclude = ('posts',)

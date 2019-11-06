@@ -11,6 +11,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     published_date = models.DateTimeField(blank=True, null=True)
+    #category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.title
@@ -20,9 +21,10 @@ class Category(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     posts = models.ManyToManyField(Post, blank=True, related_name='categories')
+    post = models.ForeignKey(Post, on_delete=models.DO_NOTHING)
 
     class Meta:
         verbose_name_plural = 'Categories'
-        
+
     def __str__(self):
         return self.name
